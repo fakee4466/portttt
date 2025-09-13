@@ -1,24 +1,33 @@
-const Hero = () => {
+import React from 'react';
+
+interface HeroData {
+  titleLines: string[];
+  about: string;
+}
+
+interface HeroProps {
+  hero: HeroData;
+}
+
+const Hero: React.FC<HeroProps> = ({ hero }) => {
   return (
-    <section className="mb-16">
+    <section className="mb-16 animate-fade-up-delay">
       <div className="flex items-center gap-2 mb-6">
         <span className="text-2xl">👋</span>
-        <span className="text-text-muted text-lg">Say Hello</span>
+        <span className="text-lg" style={{ color: 'var(--muted)' }}>Say Hello</span>
       </div>
       
-      <h1 className="text-6xl font-bold mb-4 leading-tight">
-        I'm John Anderson,{" "}
-        <span className="text-primary">Framer DJ</span>
+      <h1 className="hero-title">
+        {hero.titleLines[0]}<br />
+        <span className="hero-accent">{hero.titleLines[1]}</span>
       </h1>
       
-      <p className="text-2xl text-foreground mb-8">
-        Based in Los Angeles, CA.
+      <p className="hero-location mb-8">
+        {hero.titleLines[2]}
       </p>
       
-      <p className="text-lg text-text-muted leading-relaxed max-w-4xl">
-        I specialize in creating clean, user-friendly digital experiences by blending creativity with functionality. With a strong 
-        background in interactive design, I focus on crafting designs that not only look great but also provide smooth and engaging 
-        user interactions, helping ideas come to life seamlessly.
+      <p className="text-lg leading-relaxed max-w-4xl" style={{ color: 'var(--muted)' }}>
+        {hero.about}
       </p>
     </section>
   );
