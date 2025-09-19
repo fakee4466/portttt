@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [...mochaPlugins(process.env as any), react(), cloudflare()],
   server: {
     allowedHosts: true,
+    port: 8080,
   },
   build: {
     chunkSizeWarningLimit: 5000,
