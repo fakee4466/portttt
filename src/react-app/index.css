@@ -8,23 +8,26 @@
 /* Load Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-/* CSS Variables for Dark Theme */
+/* CSS Variables for Dark Theme - Premium Modern Design */
 :root {
-  /* Colors */
-  --bg: #0b0b0b;
-  --surface: #101112;
-  --card: #151617;
-  --border: rgba(255, 255, 255, 0.10);
-  --text: #f4f4f5;
-  --muted: rgba(244, 244, 245, 0.65);
-  --accent: #22e07a;
-  --accent-dot: #26d77a;
+  /* Colors - Deep black with premium cyan accents */
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --card: #111111;
+  --border: rgba(0, 255, 255, 0.15);
+  --text: #FFFFFF;
+  --muted: rgba(229, 229, 229, 0.7);
+  --accent: #00FFFF;
+  --accent-dot: #14B8A6;
   /* Project action specific color (different from --accent) */
-  --project-action: #60a5fa; /* blue */
-  --input-bg: rgba(255,255,255,0.02);
-  --input-border: rgba(255,255,255,0.14);
-  --hover-bg: rgba(34, 224, 122, 0.1);
-  --shadow: 0 16px 44px rgba(0,0,0,0.55);
+  --project-action: #8B5CF6; /* purple */
+  --input-bg: rgba(255,255,255,0.03);
+  --input-border: rgba(0, 255, 255, 0.2);
+  --hover-bg: rgba(0, 255, 255, 0.08);
+  --shadow: 0 25px 60px rgba(0, 255, 255, 0.15);
+  --glow: 0 0 40px rgba(0, 255, 255, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.08);
   
   /* Typography */
   --font-heading: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -52,20 +55,25 @@
   --content-max: 1100px;
 }
 
-/* Light Theme Variables */
+/* Light Theme Variables - Elegant Feminine Design */
 body.light-theme {
-  --bg: #fff9fb;
-  --surface: #fff3f7;
-  --card: #ffffff;
-  --border: rgba(255, 182, 193, 0.28);
-  --text: #2a2a2a;
+  --bg: #FFFFFF;
+  --surface: #FFF8FB;
+  --card: #FFFFFF;
+  --border: rgba(255, 105, 180, 0.2);
+  --text: #2A2A2A;
   --muted: rgba(42, 42, 42, 0.65);
-  --accent: #ff5fa8;
-  --accent-dot: #ff7fb6;
-  --input-bg: #fffafd;
-  --input-border: rgba(255, 182, 193, 0.35);
-  --hover-bg: #ffeaf3;
-  --shadow: 0 10px 26px rgba(255, 182, 193, 0.25);
+  --accent: #FF69B4;
+  --accent-dot: #FF1493;
+  --input-bg: #FFFAFD;
+  --input-border: rgba(255, 105, 180, 0.25);
+  --hover-bg: rgba(255, 105, 180, 0.06);
+  --shadow: 0 20px 40px rgba(255, 182, 193, 0.2);
+  --glow: 0 0 30px rgba(255, 105, 180, 0.25);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 105, 180, 0.15);
+  --gradient-primary: linear-gradient(135deg, #FF69B4, #FF1493);
+  --gradient-secondary: linear-gradient(135deg, #FFC0CB, #FF69B4);
 }
 
 /* Base Styles */
@@ -229,21 +237,50 @@ body.light-theme *:focus-visible {
 
 .profile-card {
   width: 100%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04)), var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: var(--shadow);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow), var(--glow);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Light theme profile card gradient */
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.8;
+}
+
+.profile-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow), var(--glow), 0 35px 80px rgba(0, 255, 255, 0.25);
+}
+
+/* Light theme profile card */
 body.light-theme .profile-card {
-  background: linear-gradient(180deg, rgba(255,192,203,0.05), rgba(255,182,193,0.02)), var(--card);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow), var(--glow);
+}
+
+body.light-theme .profile-card::before {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+body.light-theme .profile-card:hover {
+  box-shadow: var(--shadow), var(--glow), 0 35px 80px rgba(255, 105, 180, 0.2);
 }
 
 .profile-image-container {
@@ -258,39 +295,65 @@ body.light-theme .profile-card {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.profile-image-container:hover .profile-image {
+  transform: scale(1.05);
 }
 
 .profile-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(0, 0, 0, 0.2));
+  transition: all 0.4s ease;
+}
+
+.profile-image-container:hover .profile-image-overlay {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(0, 0, 0, 0.1));
 }
 
 /* Light theme image overlay */
 body.light-theme .profile-image-overlay {
-  background: linear-gradient(135deg, rgba(255,192,203,0.05), rgba(255,105,180,0.1));
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.08), rgba(255, 255, 255, 0.1));
+}
+
+body.light-theme .profile-image-container:hover .profile-image-overlay {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(255, 255, 255, 0.05));
 }
 
 .status-pill {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  background: var(--input-bg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border);
-  padding: var(--space-1) 14px;
-  border-radius: 12px;
+  padding: var(--space-1) 16px;
+  border-radius: 14px;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+}
+
+body.light-theme .status-pill {
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.1);
 }
 
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: var(--accent-dot);
   border-radius: 50%;
   transition: all 0.3s ease;
+  box-shadow: 0 0 12px var(--accent-dot);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
 }
 
 .profile-name {
@@ -312,18 +375,39 @@ body.light-theme .profile-image-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--input-bg);
+  width: 44px;
+  height: 44px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.22, 0.9, 0.2, 1);
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.22, 0.9, 0.2, 1);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .social-link:hover {
   background: var(--hover-bg);
-  transform: scale(1.06);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.2);
+}
+
+.social-link:hover::before {
+  opacity: 0.1;
+}
+
+body.light-theme .social-link:hover {
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
 }
 
 .profile-actions {
@@ -337,37 +421,67 @@ body.light-theme .profile-image-overlay {
   align-items: center;
   justify-content: center;
   gap: var(--space-1);
-  padding: 12px var(--space-2);
-  border-radius: 12px;
-  font-weight: 500;
+  padding: 14px var(--space-2);
+  border-radius: 14px;
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.22, 0.9, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.22, 0.9, 0.2, 1);
   flex: 1;
-  min-height: 44px;
+  min-height: 48px;
   font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn:hover::before {
+  transform: translateX(100%);
 }
 
 .btn-ghost {
-  background: var(--input-bg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   color: var(--text);
 }
 
 .btn-ghost:hover {
   background: var(--hover-bg);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15);
+}
+
+body.light-theme .btn-ghost:hover {
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.15);
 }
 
 .btn-accent {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-dot));
   border: 1px solid var(--accent);
   color: var(--bg);
-  font-weight: 600;
-  box-shadow: 0 10px 24px rgba(34, 224, 122, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+}
+
+body.light-theme .btn-accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dot));
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
 }
 
 .btn-accent:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(34, 224, 122, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 255, 255, 0.4);
+}
+
+body.light-theme .btn-accent:hover {
+  box-shadow: 0 8px 30px rgba(255, 105, 180, 0.4);
 }
 
 /* Hero Section */

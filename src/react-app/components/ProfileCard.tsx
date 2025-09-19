@@ -1,5 +1,6 @@
 import { Download, Mail, Instagram, MessageCircle, Coffee } from 'lucide-react';
 import { PortfolioData } from '../../shared/types';
+import { CardContainer, CardBody, CardItem } from './ui/3d-card';
 
 interface ProfileCardProps {
   profile: PortfolioData['profile'];
@@ -30,56 +31,58 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
 
   return (
     <aside className="profile-sidebar">
-      <div className="profile-card">
-        <div className="profile-image-container">
-          <img 
-            src={profile.photo}
-            alt={`Portrait of ${profile.name}`}
-            className="profile-image"
-            loading="eager"
-          />
-          <div className="profile-image-overlay" />
-        </div>
+      <CardContainer containerClassName="py-0">
+        <CardBody className="profile-card h-auto w-auto">
+          <CardItem translateZ="50" className="profile-image-container">
+            <img 
+              src={profile.photo}
+              alt={`Portrait of ${profile.name}`}
+              className="profile-image"
+              loading="eager"
+            />
+            <div className="profile-image-overlay" />
+          </CardItem>
 
-        <div className="status-pill">
-          <div className="status-dot" />
-          <span>{profile.status}</span>
-        </div>
+          <CardItem translateZ="30" className="status-pill">
+            <div className="status-dot" />
+            <span>{profile.status}</span>
+          </CardItem>
 
-        <h2 className="profile-name">{profile.name}</h2>
+          <CardItem translateZ="40" as="h2" className="profile-name">{profile.name}</CardItem>
 
-        <div className="social-links">
-          {profile.social.map((social) => (
-            <a
-              key={social.name}
-              href={social.url}
-              aria-label={social.aria}
-              className="social-link"
+          <CardItem translateZ="20" className="social-links">
+            {profile.social.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                aria-label={social.aria}
+                className="social-link"
+              >
+                {getSocialIcon(social.name)}
+              </a>
+            ))}
+          </CardItem>
+
+          <CardItem translateZ="30" className="profile-actions">
+            <a 
+              href={profile.cvUrl}
+              className="btn btn-ghost"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {getSocialIcon(social.name)}
+              <Download size={16} />
+              {profile.resumeButtonText}
             </a>
-          ))}
-        </div>
-
-        <div className="profile-actions">
-          <a 
-            href={profile.cvUrl}
-            className="btn btn-ghost"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download size={16} />
-            {profile.resumeButtonText}
-          </a>
-          <a 
-            href="#contact"
-            className="btn btn-accent"
-          >
-            <Mail size={16} />
-            Contact Me
-          </a>
-        </div>
-      </div>
+            <a 
+              href="#contact"
+              className="btn btn-accent"
+            >
+              <Mail size={16} />
+              Contact Me
+            </a>
+          </CardItem>
+        </CardBody>
+      </CardContainer>
     </aside>
   );
 };
